@@ -16,6 +16,10 @@ const AddJobModal = ({ open, onOpenChange, onSubmit }: AddJobModalProps) => {
     company: "",
     position: "",
     notes: "",
+    location: {
+      address: "",
+      coordinates: [-122.4194, 37.7749] as [number, number] // Default to San Francisco
+    }
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +29,7 @@ const AddJobModal = ({ open, onOpenChange, onSubmit }: AddJobModalProps) => {
       status: "To Apply",
       date: new Date().toISOString(),
     });
-    setFormData({ company: "", position: "", notes: "" });
+    setFormData({ company: "", position: "", notes: "", location: { address: "", coordinates: [-122.4194, 37.7749] } });
     onOpenChange(false);
   };
 
@@ -52,6 +56,18 @@ const AddJobModal = ({ open, onOpenChange, onSubmit }: AddJobModalProps) => {
               value={formData.position}
               onChange={(e) => setFormData({ ...formData, position: e.target.value })}
               placeholder="Enter position title"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Location</label>
+            <Input
+              required
+              value={formData.location.address}
+              onChange={(e) => setFormData({ 
+                ...formData, 
+                location: { ...formData.location, address: e.target.value }
+              })}
+              placeholder="Enter job location"
             />
           </div>
           <div className="space-y-2">
