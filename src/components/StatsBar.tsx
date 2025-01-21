@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { Building2, Send, MessageSquare, CheckCircle2, XCircle } from "lucide-react";
 import type { JobApplication } from "@/pages/Index";
 
 interface StatsBarProps {
@@ -6,36 +7,52 @@ interface StatsBarProps {
 }
 
 const StatsBar = ({ jobs }: StatsBarProps) => {
-  const stats = {
-    total: jobs.length,
-    toApply: jobs.filter(job => job.status === "To Apply").length,
-    applied: jobs.filter(job => job.status === "Applied").length,
-    interview: jobs.filter(job => job.status === "Interview").length,
-    offer: jobs.filter(job => job.status === "Offer").length,
-  };
+  const stats = [
+    {
+      label: "To Apply",
+      value: jobs.filter(job => job.status === "To Apply").length,
+      icon: Building2,
+      color: "text-purple-600",
+    },
+    {
+      label: "Applied",
+      value: jobs.filter(job => job.status === "Applied").length,
+      icon: Send,
+      color: "text-blue-600",
+    },
+    {
+      label: "Interviews",
+      value: jobs.filter(job => job.status === "Interview").length,
+      icon: MessageSquare,
+      color: "text-yellow-600",
+    },
+    {
+      label: "Offers",
+      value: jobs.filter(job => job.status === "Offer").length,
+      icon: CheckCircle2,
+      color: "text-green-600",
+    },
+    {
+      label: "Rejected",
+      value: jobs.filter(job => job.status === "Rejected").length,
+      icon: XCircle,
+      color: "text-red-600",
+    },
+  ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-      <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">Total Applications</h3>
-        <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-      </Card>
-      <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">To Apply</h3>
-        <p className="text-2xl font-bold text-purple-600">{stats.toApply}</p>
-      </Card>
-      <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">Applied</h3>
-        <p className="text-2xl font-bold text-blue-600">{stats.applied}</p>
-      </Card>
-      <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">Interviews</h3>
-        <p className="text-2xl font-bold text-yellow-600">{stats.interview}</p>
-      </Card>
-      <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">Offers</h3>
-        <p className="text-2xl font-bold text-green-600">{stats.offer}</p>
-      </Card>
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {stats.map(({ label, value, icon: Icon, color }) => (
+        <Card key={label} className="p-4 bg-white">
+          <div className="flex items-center gap-3">
+            <Icon className={`h-5 w-5 ${color}`} />
+            <div>
+              <p className="text-sm font-medium text-gray-500">{label}</p>
+              <p className={`text-2xl font-bold ${color}`}>{value}</p>
+            </div>
+          </div>
+        </Card>
+      ))}
     </div>
   );
 };

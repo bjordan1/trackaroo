@@ -30,34 +30,37 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">Job Applications</h1>
-          <Button onClick={() => setIsAddModalOpen(true)} className="bg-blue-600 hover:bg-blue-700">
-            <Plus className="mr-2 h-4 w-4" /> Add Application
-          </Button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="p-6 space-y-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">My Job Board</h1>
+            <Button onClick={() => setIsAddModalOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+              <Plus className="mr-2 h-4 w-4" /> Add Job
+            </Button>
+          </div>
+
+          <StatsBar jobs={jobs} />
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4 overflow-x-auto">
+            {(["To Apply", "Applied", "Interview", "Offer", "Rejected"] as const).map((status) => (
+              <div key={status} className="min-w-[300px]">
+                <StatusColumn
+                  status={status}
+                  jobs={jobs.filter((job) => job.status === status)}
+                  onStatusChange={updateJobStatus}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-
-        <StatsBar jobs={jobs} />
-
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-          {(["To Apply", "Applied", "Interview", "Offer", "Rejected"] as const).map((status) => (
-            <StatusColumn
-              key={status}
-              status={status}
-              jobs={jobs.filter((job) => job.status === status)}
-              onStatusChange={updateJobStatus}
-            />
-          ))}
-        </div>
-
-        <AddJobModal
-          open={isAddModalOpen}
-          onOpenChange={setIsAddModalOpen}
-          onSubmit={addJob}
-        />
       </div>
+
+      <AddJobModal
+        open={isAddModalOpen}
+        onOpenChange={setIsAddModalOpen}
+        onSubmit={addJob}
+      />
     </div>
   );
 };
