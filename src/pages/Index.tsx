@@ -20,6 +20,7 @@ export type JobApplication = {
   };
 };
 
+// Placeholders to hold text for each application
 const Index = () => {
   const [jobs, setJobs] = useState<JobApplication[]>([
     {
