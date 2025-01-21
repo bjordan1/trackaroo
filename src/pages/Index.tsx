@@ -29,6 +29,20 @@ const Index = () => {
     ));
   };
 
+  const handleDragStart = (e: React.DragEvent, jobId: string) => {
+    e.dataTransfer.setData('jobId', jobId);
+  };
+
+  const handleDrop = (e: React.DragEvent, status: JobApplication["status"]) => {
+    e.preventDefault();
+    const jobId = e.dataTransfer.getData('jobId');
+    updateJobStatus(jobId, status);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="p-6 space-y-6">
@@ -44,11 +58,17 @@ const Index = () => {
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4 overflow-x-auto">
             {(["To Apply", "Applied", "Interview", "Offer", "Rejected"] as const).map((status) => (
-              <div key={status} className="min-w-[300px]">
+              <div 
+                key={status} 
+                className="min-w-[300px]"
+                onDrop={(e) => handleDrop(e, status)}
+                onDragOver={handleDragOver}
+              >
                 <StatusColumn
                   status={status}
                   jobs={jobs.filter((job) => job.status === status)}
                   onStatusChange={updateJobStatus}
+                  onDragStart={handleDragStart}
                 />
               </div>
             ))}

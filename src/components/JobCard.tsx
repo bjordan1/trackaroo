@@ -12,9 +12,10 @@ import type { JobApplication } from "@/pages/Index";
 interface JobCardProps {
   job: JobApplication;
   onStatusChange: (jobId: string, status: JobApplication["status"]) => void;
+  onDragStart: (e: React.DragEvent, jobId: string) => void;
 }
 
-const JobCard = ({ job, onStatusChange }: JobCardProps) => {
+const JobCard = ({ job, onStatusChange, onDragStart }: JobCardProps) => {
   const statusColors = {
     "To Apply": "bg-purple-100 text-purple-800",
     "Applied": "bg-blue-100 text-blue-800",
@@ -24,7 +25,11 @@ const JobCard = ({ job, onStatusChange }: JobCardProps) => {
   };
 
   return (
-    <Card className="p-4 bg-white hover:shadow-md transition-shadow">
+    <Card 
+      className="p-4 bg-white hover:shadow-md transition-shadow cursor-move"
+      draggable
+      onDragStart={(e) => onDragStart(e, job.id)}
+    >
       <div className="space-y-3">
         <div className="flex justify-between items-start">
           <div>

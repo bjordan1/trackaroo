@@ -5,9 +5,10 @@ interface StatusColumnProps {
   status: JobApplication["status"];
   jobs: JobApplication[];
   onStatusChange: (jobId: string, status: JobApplication["status"]) => void;
+  onDragStart: (e: React.DragEvent, jobId: string) => void;
 }
 
-const StatusColumn = ({ status, jobs, onStatusChange }: StatusColumnProps) => {
+const StatusColumn = ({ status, jobs, onStatusChange, onDragStart }: StatusColumnProps) => {
   const statusColors = {
     "To Apply": "bg-purple-50 border-purple-200",
     "Applied": "bg-blue-50 border-blue-200",
@@ -25,7 +26,12 @@ const StatusColumn = ({ status, jobs, onStatusChange }: StatusColumnProps) => {
         </h2>
         <div className="space-y-3 min-h-[200px]">
           {jobs.map((job) => (
-            <JobCard key={job.id} job={job} onStatusChange={onStatusChange} />
+            <JobCard 
+              key={job.id} 
+              job={job} 
+              onStatusChange={onStatusChange}
+              onDragStart={onDragStart}
+            />
           ))}
         </div>
       </div>
