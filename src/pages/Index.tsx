@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import JobCard from "@/components/JobCard";
 import AddJobModal from "@/components/AddJobModal";
 import StatusColumn from "@/components/StatusColumn";
 import StatsBar from "@/components/StatsBar";
@@ -16,7 +15,32 @@ export type JobApplication = {
 };
 
 const Index = () => {
-  const [jobs, setJobs] = useState<JobApplication[]>([]);
+  const [jobs, setJobs] = useState<JobApplication[]>([
+    {
+      id: "1",
+      company: "Google",
+      position: "Frontend Developer",
+      status: "To Apply",
+      date: new Date().toISOString(),
+      notes: "Exciting opportunity in the Search team"
+    },
+    {
+      id: "2",
+      company: "Microsoft",
+      position: "Software Engineer",
+      status: "Applied",
+      date: new Date().toISOString(),
+      notes: "Applied through referral"
+    },
+    {
+      id: "3",
+      company: "Apple",
+      position: "UI Engineer",
+      status: "Interview",
+      date: new Date().toISOString(),
+      notes: "First round scheduled"
+    }
+  ]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const addJob = (job: Omit<JobApplication, "id">) => {
