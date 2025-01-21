@@ -22,7 +22,7 @@ const AddJobModal = ({ open, onOpenChange, onSubmit }: AddJobModalProps) => {
     e.preventDefault();
     onSubmit({
       ...formData,
-      status: "Applied",
+      status: "To Apply",
       date: new Date().toISOString(),
     });
     setFormData({ company: "", position: "", notes: "" });
@@ -66,7 +66,7 @@ const AddJobModal = ({ open, onOpenChange, onSubmit }: AddJobModalProps) => {
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit">Add Application</Button>
+            <Button type="submit">Add to To-Do</Button>
           </div>
         </form>
       </DialogContent>

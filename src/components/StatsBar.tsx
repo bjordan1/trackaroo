@@ -8,19 +8,24 @@ interface StatsBarProps {
 const StatsBar = ({ jobs }: StatsBarProps) => {
   const stats = {
     total: jobs.length,
+    toApply: jobs.filter(job => job.status === "To Apply").length,
     applied: jobs.filter(job => job.status === "Applied").length,
     interview: jobs.filter(job => job.status === "Interview").length,
     offer: jobs.filter(job => job.status === "Offer").length,
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
       <Card className="p-4">
         <h3 className="text-sm font-medium text-gray-500">Total Applications</h3>
         <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
       </Card>
       <Card className="p-4">
-        <h3 className="text-sm font-medium text-gray-500">Active Applications</h3>
+        <h3 className="text-sm font-medium text-gray-500">To Apply</h3>
+        <p className="text-2xl font-bold text-purple-600">{stats.toApply}</p>
+      </Card>
+      <Card className="p-4">
+        <h3 className="text-sm font-medium text-gray-500">Applied</h3>
         <p className="text-2xl font-bold text-blue-600">{stats.applied}</p>
       </Card>
       <Card className="p-4">

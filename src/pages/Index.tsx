@@ -10,7 +10,7 @@ export type JobApplication = {
   id: string;
   company: string;
   position: string;
-  status: "Applied" | "Interview" | "Offer" | "Rejected";
+  status: "To Apply" | "Applied" | "Interview" | "Offer" | "Rejected";
   date: string;
   notes: string;
 };
@@ -41,8 +41,8 @@ const Index = () => {
 
         <StatsBar jobs={jobs} />
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {(["Applied", "Interview", "Offer", "Rejected"] as const).map((status) => (
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {(["To Apply", "Applied", "Interview", "Offer", "Rejected"] as const).map((status) => (
             <StatusColumn
               key={status}
               status={status}
